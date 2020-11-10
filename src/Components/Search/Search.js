@@ -19,6 +19,12 @@ const Search = (props) =>{
                 reserved_book_details.push(res.data)
             })
         })
+
+        axios.get("/admin/allBooks")
+        .then(res=>{
+            console.log(res.data)
+            set_books(res.data)
+        })
     },[])
     const [search_by,set_search_by] = useState('')
     const [search_content,update_search_content] = useState('')
@@ -27,38 +33,7 @@ const Search = (props) =>{
     const [issue_book_details,set_issue_book_details] = useState([])
     const [reserved_book_details,set_reserved_book_section] = useState([])
 
-    const [books,set_books] = useState([
-        {
-            bookTitle : 'Hesd First Python',
-            author: 'Mat Heanry',
-            publication : 'ORACLE',
-            bookNo: 4128
-        },
-        {
-            bookTitle : 'A Textbook of quantum mechanics',
-            author: 'Piravonu Mathews Mathews',
-            publication : 'Hill Books',
-            bookNo: 70965102
-        },
-        {
-            bookTitle : 'Higher creativity',
-            author: 'Willis W. Harman',
-            publication : 'ORACLE',
-            bookNo: 874772931
-        },
-        {
-            bookTitle : 'Cultural anthropology',
-            author: 'Roger M. Keesing',
-            publication : 'Springer',
-            bookNo: 30462967
-        },
-        {
-            bookTitle : 'Cultural anthropology',
-            author: 'Roger M. Keesing',
-            publication : 'Springer',
-            bookNo: 30462967
-        },
-    ])
+    const [books,set_books] = useState([])
 
     return(
         <div>
@@ -110,7 +85,7 @@ const Search = (props) =>{
                                             <span className = 'individual_info'>{book.publication}</span><br />
 
                                             <span className = 'heading'>Book No.:</span>
-                                            <span className = 'individual_info'>{book.bookNo}</span><br />
+                                            <span className = 'individual_info'>{book.bookNumber}</span><br />
                                         </div>
                                     )
                                 })
