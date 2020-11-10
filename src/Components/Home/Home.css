@@ -1,0 +1,180 @@
+.home_container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.logo_login{
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    height: 40px;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.logo{
+    display: flex;
+    width: 25%;
+    align-items: center;
+    justify-content: center;
+}
+.login_toggle{
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    background-color: #04494a;
+    color: white;
+    font-size: large;
+    font-weight: bold;
+    border: 0px
+}
+.login_toggle:focus{
+    outline: none;
+}
+.logo_write{
+    display: flex ;
+    justify-content: center;
+    align-items: center;
+    width: 25%;
+    font-size: 20px;
+    font-weight: bolder;
+}
+.about_register{
+    width: 100%;
+    margin-top: 1%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    min-height: 100%;
+}
+.about{
+    width: 59.5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: brown;
+}
+.byWhome{
+    margin-top: 30px;
+    color: cornflowerblue;
+}
+.quate{
+    width: 60%;
+    font-size: larger;
+    font-weight: bolder;
+}
+.register{
+    width: 39.5%;
+}
+.title{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+}
+h6{
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+.register_process{
+    margin-top: 1%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.category_choice{
+    display: flex;
+    flex-direction: row;
+    height: 30px;
+    width: 40%;
+    align-items: center;
+    justify-content: center;
+}
+.choice1{
+    height: 100%;
+    width: 100%;
+    color: brown;
+    background-color: #d2ed4a;
+    font-size: larger;
+    font-weight: bold;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    
+    border: 1.5px solid black;
+}
+.choice1:focus{
+    outline: none;
+}
+.register_any{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+}
+.input_section{
+    width : 100%;
+    height: 30px;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.input_area{
+    width : 80%;
+    height: 30px;
+    padding-left: 2%;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 20px;
+    border: 0px solid ;
+    background-color: #d0d16d;
+    border-bottom: 1px solid black;
+}
+.input_area:focus{
+    outline: none;
+    border-bottom: 2px solid black;
+}
+.submit{
+ margin-top: 60px;
+ width: 100%;
+ height: 40px;
+ display: flex;
+ flex-direction: row;
+ align-items: center;
+ justify-content: center;
+}
+.sign_up{
+    width: 50%;
+    height: 100%;
+    border-radius: 20px;
+    font-size: medium;
+    font-weight: bolder;
+    background-color: #04494a;
+    color: white;
+    border: 0px;
+}
+.sign_up:focus{
+    outline: none;
+}
+.link{
+    text-decoration: none;
+    color: black;
+}
+
+.alert_message{
+    margin-top: 10px;
+    width: 40%;
+    font-size: large;
+    font-weight: 600;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 2px;
+    background-color: red;
+    color: white;
+}

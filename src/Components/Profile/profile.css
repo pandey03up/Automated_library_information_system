@@ -1,0 +1,118 @@
+.profile_main_container{
+    width: 100%;
+}
+.head_logo{
+    width: 100%;
+    height: 45px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #b9cc62;
+}
+#individual_info{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+}
+.head{
+    display: flex ;
+    justify-content: center;
+    align-items: center;
+    width: 25%;
+    font-size: 20px;
+    font-weight: bolder;
+}
+#books_details{
+    width: 70%;
+}
+#user_details{
+    width: 30%;
+}
+table, th, td{
+    border: 1px solid black;
+}
+tr{
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+td{
+    padding-left: 1%;
+}
+table{
+    width: 100%;
+    border-collapse: collapse;
+}
+.section_heading{
+   color: #264deb;
+   padding-left: 2%; 
+   padding-top: 5px;
+   padding-bottom: 5px;
+   font-weight: bolder;
+   font-size: larger;
+}
+#reserved_books{
+    margin-top: 50px;
+    padding-left: 1%;
+    padding-right: 1%;
+}
+#issued_books{
+    padding-left: 1%;
+    padding-right: 1%;
+}
+.heading{
+    font-size: large;
+    font-weight: bold;
+    color: #eb5726;
+    padding-left: 2%;
+}
+.individual_info{
+    color: #2633eb;
+    font-size: 17px;
+    padding-left: 2%;
+}
+#user_info_heading{
+    padding-left: 2%;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-weight: bolder;
+    font-size: 25px;
+    color: #cf2f1d;
+    text-decoration: underline;
+}
+.info_container{
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+#book_info_heading{
+    padding-left: 2%;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    margin-left: 8%;
+    align-items: center;
+    font-weight: bolder;
+    font-size: 25px;
+    color: #cf2f1d;
+    text-decoration: underline;
+}
+.update{
+    display: flex;
+    flex-direction: row-reverse;
+    margin-right: 5%;
+    margin-top: 10px;
+    height: 25px;
+}
+.update_button{
+    background-color: #b9cc62;
+    border: 0px;
+    color: #264deb;
+}
+.update_button:focus{
+    outline: none;
+}
+.update_button:hover{
+    font-weight: bold;
+}
