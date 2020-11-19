@@ -461,10 +461,6 @@ const Admin = (props) =>{
                         <span className = 'heading'>Publication:</span>
                         <span className = 'individual_info'>{book_details.publication}</span><br />
                     </div>
-                    <div className='info_container'>
-                        <span className = 'heading'>Assigned:</span>
-                        <span className = 'individual_info'>{book_details.assigned}</span><br />
-                    </div>
                     {
                         !book_details.assigned ? null : 
                         <div className='info_container'>

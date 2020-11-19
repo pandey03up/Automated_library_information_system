@@ -35,6 +35,23 @@ const Search = (props) =>{
 
     const [books,set_books] = useState([])
 
+    const [min,set_min] = useState(0)
+    const [max,set_max] = useState(9)
+
+    const search_book = () =>{
+        if(search_by === "byBookNo"){
+            axios.get(`/admin/getOne/${search_content}`)
+            .then(res => {
+                set_books([res.data])
+            })
+        }
+
+        if(search_by === "byBookName"){
+            const all_books = books.filter(book => book.bookTitle.includes(search_content))
+            set_books([...all_books])
+        }
+    }
+
     return(
         <div>
             {   
@@ -65,31 +82,37 @@ const Search = (props) =>{
                                 />
                             </div>
                             <div className = 'search_by_container'>
-                                <button className = 'submit_issue'>Search</button>
+                                <button onClick = {() => search_book()} className = 'submit_issue'>Search</button>
                             </div>
                         </div>
                     </div>
                     <div id= 'books_section'>
                         <div id="all_books">
                             {
-                                books.map(book=>{
-                                    return(
-                                        <div className = 'individual_book_info'>
-                                            <span className = 'heading'>Title:</span>
-                                            <span className = 'individual_info'>{book.bookTitle}</span><br />
+                                books.map((book,index)=>{
+                                    if(index >= min && index <= max){
+                                        return(
+                                            <div className = 'individual_book_info'>
+                                                <span className = 'heading'>Title:</span>
+                                                <span className = 'individual_info'>{book.bookTitle}</span><br />
 
-                                            <span className = 'heading'>Author:</span>
-                                            <span className = 'individual_info'>{book.author}</span><br />
+                                                <span className = 'heading'>Author:</span>
+                                                <span className = 'individual_info'>{book.author}</span><br />
 
-                                            <span className = 'heading'>Publisher:</span>
-                                            <span className = 'individual_info'>{book.publication}</span><br />
+                                                <span className = 'heading'>Publisher:</span>
+                                                <span className = 'individual_info'>{book.publication}</span><br />
 
-                                            <span className = 'heading'>Book No.:</span>
-                                            <span className = 'individual_info'>{book.bookNumber}</span><br />
-                                        </div>
-                                    )
+                                                <span className = 'heading'>Book No.:</span>
+                                                <span className = 'individual_info'>{book.bookNumber}</span><br />
+                                            </div>
+                                        )
+                                    }
                                 })
                             }
+                        </div>
+                        <div>
+                            <div><button onClick = {() =>{set_min(min - 10); set_max(max - 10)}} className = 'book_controller'>Prev</button></div>
+                            <div><button onClick = {() =>{set_min(min + 10); set_max(max + 10)}} className = 'book_controller'>Next</button></div>
                         </div>
                     </div>
                 </div>
