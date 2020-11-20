@@ -7,18 +7,6 @@ import './Search.css';
 
 const Search = (props) =>{
     useEffect(()=>{
-        props.location.state.issuedBooks.map((book)=>{
-            axios.get(`/admin/getOne/${book[0]}`)
-            .then(res =>{
-                issue_book_details.push(res.data)
-            })
-        })
-        props.location.state.reservedBooks.map((book)=>{
-            axios.get(`/admin/getOne/${book[0]}`)
-            .then(res =>{
-                reserved_book_details.push(res.data)
-            })
-        })
 
         axios.get("/admin/allBooks")
         .then(res=>{
@@ -50,6 +38,18 @@ const Search = (props) =>{
             const all_books = books.filter(book => book.bookTitle.includes(search_content))
             set_books([...all_books])
         }
+    }
+
+    const saveBook = (id) =>{
+        const reservedBooks = [...reserved_book_details,id]
+        const details = {
+            ...props.location.state,
+            reservedBooks : reservedBooks,
+        }
+        axios.post("/users/update",details)
+        .then(res => {
+            console.log("assigned")
+        })
     }
 
     return(
@@ -93,6 +93,9 @@ const Search = (props) =>{
                                     if(index >= min && index <= max){
                                         return(
                                             <div className = 'individual_book_info'>
+                                                {
+                                                    book.assigned ? <div><button onClick = {() => saveBook(book.id)} className = 'book_controller'>Save</button></div> : null
+                                                }
                                                 <span className = 'heading'>Title:</span>
                                                 <span className = 'individual_info'>{book.bookTitle}</span><br />
 

@@ -5,20 +5,41 @@ import './profile.css';
 
 const Profile = (props) =>{
     useEffect(()=>{
-        set_user_info({...props.location.state})
-        set_name(props.location.state.name)
-        set_id(props.location.state.id)
-        set_email(props.location.state.email)
-        set_type(props.location.state.type)
+        axios.get(`/users/${props.location.state.id}`)
+        .then(res =>{
+            set_user_info({...res.data})
+            set_name(res.data.name)
+            set_type(res.data.type)
+            var books = []
+            res.data.issuedBooks.map((book)=>{
+                
+                axios.get(`/admin/getOne/${book[0]}`)
+                .then(res =>{
+                    books = [...books,res.data]
+                    set_issued_books([...books])
+                })
+            })
+
+            var save_books = []
+            res.data.reservedBooks.map((book)=>{
+                axios.get(`/admin/getOne/${book}`)
+                .then(res =>{
+                    save_books = [...save_books,res.data]
+                    console.log(save_books)
+                    set_reserved_books([...save_books])
+                })
+            })
+        })
     },[props])
 
     const [user_info,set_user_info] = useState()
     const [isUpdate,set_update] = useState(false)
 
     const [name,set_name] = useState()
-    const [id,set_id] = useState()
-    const [email,set_email] = useState()
     const [type,set_type] = useState()
+
+    const [issuedBooks,set_issued_books] = useState([])
+    const [reservedBooks , set_reserved_books] = useState([])
 
     const update = () =>{
         set_update(false)
@@ -31,7 +52,7 @@ const Profile = (props) =>{
             }
             axios.post(`/users/update`,user)
             .then(res=>{
-                console.log('Details updated')
+                window.location.reload();
             })
         })
     }
@@ -43,7 +64,7 @@ const Profile = (props) =>{
                 <div>
                     <div className = "head_logo">
                         <div className = 'head'>Library Management System</div>
-                        <div className = 'head'>{name}</div>
+                        <div className = 'head'>{user_info.name}</div>
                     </div>
                     <div id = 'individual_info'>
                         <div id='books_details'>
@@ -59,7 +80,7 @@ const Profile = (props) =>{
                                         <th>Secret No. </th>
                                     </tr>
                                     {   
-                                        user_info.issuedBooks.map((book,index) => {
+                                        issuedBooks.map((book,index) => {
                                             return(
                                                 <tr>
                                                     <td>{index+1}</td>
@@ -84,14 +105,14 @@ const Profile = (props) =>{
                                         <th>Secret No. </th>
                                     </tr>
                                     {
-                                        user_info.reservedBooks.map((book,index) => {
+                                        reservedBooks.map((book,index) => {
                                             return(
                                                 <tr>
                                                     <td>{index+1}</td>
-                                                    <td>{book.bookName}</td>
-                                                    <td>{book.authorName}</td>
+                                                    <td>{book.bookTitle}</td>
+                                                    <td>{book.author}</td>
                                                     <td>{book.publication}</td>
-                                                    <td>{book.secretNo}</td>
+                                                    <td>{book.id}</td>
                                                 </tr>
                                             )
                                         })
@@ -106,19 +127,24 @@ const Profile = (props) =>{
                                 <div>
                                     <div className='info_container'>                    
                                         <span className = 'heading'>Name:</span>
-                                        <span className = 'individual_info'>{name}</span><br />
+                                        <span className = 'individual_info'>{user_info.name}</span><br />
                                     </div>
-                                    <div className='info_container'>
-                                        <span className = 'heading'>College ID:</span>
-                                        <span className = 'individual_info'>{id.replace('@iiit-bh.ac.in','')}</span><br />
+                                    <div>
+                                        {
+                                            user_info.type === "faculty" ? null : 
+                                            <div className='info_container'>
+                                                <span className = 'heading'>College ID:</span>
+                                                <span className = 'individual_info'>{user_info.id}</span><br />
+                                            </div>
+                                        }
                                     </div>
                                     <div className='info_container'>
                                         <span className = 'heading'>Email:</span>
-                                        <span className = 'individual_info'>{email}</span><br />
+                                        <span className = 'individual_info'>{user_info.email}</span><br />
                                     </div>
                                     <div className='info_container'>
                                         <span className = 'heading'>Type:</span>
-                                        <span className = 'individual_info'>{type}</span><br />
+                                        <span className = 'individual_info'>{user_info.type}</span><br />
                                     </div>
                                     <div className = 'update'><button onClick = {() => set_update(true)} className = 'update_button'>Update Details</button></div>
                                 </div>

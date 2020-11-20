@@ -112,51 +112,65 @@ const Admin = (props) =>{
     const issue_book = () =>{
         var book
         var user
-        axios.get(`/admin/getOne/${book_number}`)
-        .then(res=>{
+        const id = studentId + '@iiit-bh.ac.in'
+        axios.get(`/users/${id}`)
+        .then(res =>{
             if(res.data){
-                if(res.data.assigned === true){
-                    set_assignment_message('book already assigned')
-                    set_studentId("")
-                    set_book_number("")
-                    return
-                }
-                book = res.data
-                const id = studentId + '@iiit-bh.ac.in'
-                axios.get(`/users/${id}`)
-                .then(res => {
-                    if(res.data){
-                        user = res.data
-                        //book update
-                        axios.post('/admin/addBook',{...book,assigned : true,assignedTo:id})
-                        .then(res => {
-                            console.log('book updated')
-                        })
-                        
-                        //user Update
-                        user.issuedBooks.push([
-                            book_number,date,0
-                        ])
-                        axios.post('/users/update',{...user})
-                        .then(res =>{
-                            set_assignment_message('Book Assigned')
+                if((res.data.type === "undergraduate" && res.data.issuedBooks.length < 2) || (res.data.type === "postgraduate" && res.data.issuedBooks.length < 3) || (res.data.type === "researchscholar" && res.data.issuedBooks.length < 4) || (res.data.type === "faculty" && res.data.issuedBooks.length < 6)){
+                    axios.get(`/admin/getOne/${book_number}`)
+                    .then(res=>{
+                        if(res.data){
+                            if(res.data.assigned === true){
+                                set_assignment_message('book already assigned')
+                                set_studentId("")
+                                set_book_number("")
+                                return
+                            }
+                            book = res.data
+                            
+                            axios.get(`/users/${id}`)
+                            .then(res => {
+                                if(res.data){
+                                    user = res.data
+                                    //book update
+                                    axios.post('/admin/addBook',{...book,assigned : true,assignedTo:id})
+                                    .then(res => {
+                                        console.log('book updated')
+                                    })
+                                    
+                                    //user Update
+                                    user.issuedBooks.push([
+                                        book_number,date,0
+                                    ])
+                                    axios.post('/users/update',{...user})
+                                    .then(res =>{
+                                        set_assignment_message('Book Assigned')
+                                        set_book_number("")
+                                            set_studentId('')
+                                            set_date("")
+                                    })
+                                }else{
+                                    set_assignment_message("user dosen't exist")
+                                    set_studentId("")
+                                    set_book_number("")
+                                    return
+                                }
+                            })
+                        }
+                        else{
+                            set_assignment_message('book number is incorrect')
+                            set_studentId("")
                             set_book_number("")
-                                set_studentId('')
-                                set_date("")
-                        })
-                    }else{
-                        set_assignment_message("user dosen't exist")
-                        set_studentId("")
-                        set_book_number("")
-                        return
-                    }
-                })
+                            return
+                        }
+                    })
+                }
+                else{
+                    set_assignment_message('limit exceed')
+                }
             }
             else{
-                set_assignment_message('book number is incorrect')
-                set_studentId("")
-                set_book_number("")
-                return
+                set_assignment_message('user not exist')
             }
         })
     }
